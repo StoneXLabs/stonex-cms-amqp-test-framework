@@ -19,15 +19,13 @@
 
 #pragma once
 
-#include "Metrics.h"
+#include <Notifier/EventStatus.h>
+#include <cms/Message.h>
 
-class SizeChecker : public Metrics
+class Metrics
 {
 public:
-	explicit SizeChecker(const std::string id, size_t maxMessageSize);
-protected:
-	EventStatus onMessage(const cms::Message* message) override;
-private:
-	size_t mSize{ 0 };
-	const std::string mId;
+	virtual ~Metrics() = default;
+	virtual EventStatus onMessage(const cms::Message* message) = 0;
 };
+

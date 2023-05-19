@@ -17,17 +17,29 @@
  * limitations under the License.
  */
 
-#pragma once
+#include <fmt/format.h>
+#include <iostream>
+#include <iomanip>
+#include <ctime>
+#include <sstream>
+#include <MessageSender/MockMessageSender.h>
 
-#include "Metrics.h"
-
-class SizeChecker : public Metrics
+stonex::messaging::test::MockMessageSender::MockMessageSender(const MessageSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
+	:MessageSender(config, client_params, parent)
 {
-public:
-	explicit SizeChecker(const std::string id, size_t maxMessageSize);
-protected:
-	EventStatus onMessage(const cms::Message* message) override;
-private:
-	size_t mSize{ 0 };
-	const std::string mId;
-};
+}
+
+std::string stonex::messaging::test::MockMessageSender::createMessageBody()
+{
+	return fmt::format("{{\"source\":\"{}\",\"timestamp\":\"{}\"}}", mId, timestamp());
+
+}
+
+std::string stonex::messaging::test::MockMessageSender::timestamp() const
+{
+	auto t = std::time(nullptr);
+	auto tm = *std::localtime(&t);
+	std::stringstream timestamp;
+	timestamp << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+	return timestamp.str();
+}

@@ -19,15 +19,25 @@
 
 #pragma once
 
-#include "Metrics.h"
+#include <MessageSender/MessageCountingDecoratingSender.h>
 
-class SizeChecker : public Metrics
-{
-public:
-	explicit SizeChecker(const std::string id, size_t maxMessageSize);
-protected:
-	EventStatus onMessage(const cms::Message* message) override;
-private:
-	size_t mSize{ 0 };
-	const std::string mId;
-};
+namespace stonex {
+	namespace messaging {
+		namespace test {
+
+			class MockMessageCountingDecoratingSender : public MessageCountingDecoratingSender
+			{
+			public:
+				MockMessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
+				std::string createMessageBody();
+			private:
+				std::string timestamp() const;
+				std::string propertiesJson() const;
+
+			private:
+				std::vector <MessageTestField*> mMessageDecorations;
+			};
+
+		}
+	}
+}

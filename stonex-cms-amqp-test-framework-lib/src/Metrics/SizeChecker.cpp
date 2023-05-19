@@ -16,6 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <fmt/format.h>
 
 #include <Metrics/SizeChecker.h>
 
@@ -24,28 +25,37 @@
 #include <cms/MapMessage.h>
 #include <cms/StreamMessage.h>
 
-void SizeChecker::check(const cms::Message* message)
+SizeChecker::SizeChecker(const std::string id, size_t maxMessageSize)
+	:mId{ id },
+	mSize{maxMessageSize}
+ {
+ }
+
+EventStatus SizeChecker::onMessage(const cms::Message* message)
 {
+	size_t size;
+
 	if (auto mes = dynamic_cast<const cms::BytesMessage*>(message))
 	{
-		mSize = mes->getBodyLength();
+		size = mes->getBodyLength();
 	}
 	else if (auto mes = dynamic_cast<const cms::TextMessage*>(message))
 	{
 		
-		mSize = mes->getText().size();
+		size = mes->getText().size();
 	}
 	else if (auto mes = dynamic_cast<const cms::MapMessage*>(message))
 	{
-		mSize = sizeof(*mes);
+		size = sizeof(*mes);
 	}
 	else if (auto mes = dynamic_cast<const cms::StreamMessage*>(message))
 	{
-		mSize = sizeof(*mes);
+		size = sizeof(*mes);
 	}
+
+	if(size <= mSize)
+		return EventStatus(true,mId,fmt::format("received message body size {}B max size {}B",size, mSize));
+	else
+		return EventStatus(false, mId, fmt::format("received message body size {}B exceeds max size {}B", size, mSize));
 }
 
-size_t SizeChecker::averageSize() const
-{
-	return mSize;
-}
