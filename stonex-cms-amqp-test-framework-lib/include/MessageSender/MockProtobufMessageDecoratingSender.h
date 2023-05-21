@@ -37,16 +37,16 @@
 
 #pragma once
 
-#include <MessageSender/MockMessageSender.h>
+#include <MessageSender/MockMessageDecoratingSender.h>
 
 namespace stonex {
 	namespace messaging {
 		namespace test {
 
-			class MockProtobufMessageSender : public MockMessageSender
+			class MockProtobufMessageDecoratingSender : public MockMessageDecoratingSender
 			{
 			public:
-				MockProtobufMessageSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
+				MockProtobufMessageDecoratingSender(const MessageDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
 				virtual std::string timeStamp() const override;
 			protected:
 				virtual bool send_bytes(int msg_delay_ms = 0) override;

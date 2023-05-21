@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-#include <MessageSender/MockProtobufMessageSender.h>
+#include <MessageSender/MockProtobufMessageCountingSender.h>
 #include <messages/mock_message.pb.h>
 #include <google/protobuf/util/json_util.h>
 #include <google/protobuf/util/time_util.h>
 #include <fmt/format.h>
 
-stonex::messaging::test::MockProtobufMessageSender::MockProtobufMessageSender(const MessageSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
-	:MockMessageSender(config, client_params, parent)
+stonex::messaging::test::MockProtobufMessageCountingSender::MockProtobufMessageCountingSender(const MessageCountingSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
+	:MockMessageCountingSender(config, client_params, parent)
 {
 }
 
-std::string stonex::messaging::test::MockProtobufMessageSender::timeStamp() const
+std::string stonex::messaging::test::MockProtobufMessageCountingSender::timeStamp() const
 {
 	auto timestamp = google::protobuf::util::TimeUtil::GetCurrentTime();
 	auto test = google::protobuf::util::TimeUtil::ToString(timestamp);
@@ -36,7 +36,7 @@ std::string stonex::messaging::test::MockProtobufMessageSender::timeStamp() cons
 
 }
 
-bool stonex::messaging::test::MockProtobufMessageSender::send_bytes(int msg_delay_ms)
+bool stonex::messaging::test::MockProtobufMessageCountingSender::send_bytes(int msg_delay_ms)
 {
 	auto message_body = createMessageBody();
 
@@ -54,6 +54,7 @@ bool stonex::messaging::test::MockProtobufMessageSender::send_bytes(int msg_dela
 		
 		auto cms_message = mSession->createBytesMessage(message, protobuf_message.ByteSize());
 		mProducer->send(cms_message);
+		incrementSentCount();
 		free(message);
 		return true;
 	}
@@ -61,12 +62,12 @@ bool stonex::messaging::test::MockProtobufMessageSender::send_bytes(int msg_dela
 		return false;
 }
 
-bool stonex::messaging::test::MockProtobufMessageSender::send_stream(int msg_delay_ms)
+bool stonex::messaging::test::MockProtobufMessageCountingSender::send_stream(int msg_delay_ms)
 {
 	return false;
 }
 
-bool stonex::messaging::test::MockProtobufMessageSender::send_map(int msg_delay_ms)
+bool stonex::messaging::test::MockProtobufMessageCountingSender::send_map(int msg_delay_ms)
 {
 	return false;
 }

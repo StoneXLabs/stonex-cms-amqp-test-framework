@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-#include <MessageSender/MockProtobufMessageSender.h>
+#include <MessageSender/MockProtobufMessageCountingDecoratingSender.h>
 #include <messages/mock_message.pb.h>
 #include <google/protobuf/util/json_util.h>
 #include <google/protobuf/util/time_util.h>
 #include <fmt/format.h>
 
-stonex::messaging::test::MockProtobufMessageSender::MockProtobufMessageSender(const MessageSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
-	:MockMessageSender(config, client_params, parent)
+stonex::messaging::test::MockProtobufMessageCountingDecoratingSender::MockProtobufMessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
+	:MockMessageCountingDecoratingSender(config, client_params, parent)
 {
 }
 
-std::string stonex::messaging::test::MockProtobufMessageSender::timeStamp() const
+std::string stonex::messaging::test::MockProtobufMessageCountingDecoratingSender::timeStamp() const
 {
 	auto timestamp = google::protobuf::util::TimeUtil::GetCurrentTime();
 	auto test = google::protobuf::util::TimeUtil::ToString(timestamp);
@@ -36,7 +36,7 @@ std::string stonex::messaging::test::MockProtobufMessageSender::timeStamp() cons
 
 }
 
-bool stonex::messaging::test::MockProtobufMessageSender::send_bytes(int msg_delay_ms)
+bool stonex::messaging::test::MockProtobufMessageCountingDecoratingSender::send_bytes(int msg_delay_ms)
 {
 	auto message_body = createMessageBody();
 
@@ -51,9 +51,11 @@ bool stonex::messaging::test::MockProtobufMessageSender::send_bytes(int msg_dela
 		auto size = protobuf_message.ByteSizeLong();
 		unsigned char* message = (unsigned char*)malloc((size_t)size);
 		protobuf_message.SerializeToArray(message, size);
-		
+
 		auto cms_message = mSession->createBytesMessage(message, protobuf_message.ByteSize());
+		decorate(cms_message, mSession);
 		mProducer->send(cms_message);
+		incrementSentCount();
 		free(message);
 		return true;
 	}
@@ -61,12 +63,12 @@ bool stonex::messaging::test::MockProtobufMessageSender::send_bytes(int msg_dela
 		return false;
 }
 
-bool stonex::messaging::test::MockProtobufMessageSender::send_stream(int msg_delay_ms)
+bool stonex::messaging::test::MockProtobufMessageCountingDecoratingSender::send_stream(int msg_delay_ms)
 {
 	return false;
 }
 
-bool stonex::messaging::test::MockProtobufMessageSender::send_map(int msg_delay_ms)
+bool stonex::messaging::test::MockProtobufMessageCountingDecoratingSender::send_map(int msg_delay_ms)
 {
 	return false;
 }
