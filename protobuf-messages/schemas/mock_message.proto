@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+import "google/protobuf/timestamp.proto";
+
+package framework;
+
+message MockMessage{
+	optional string source = 1;
+	optional google.protobuf.Timestamp timestamp = 2;
+}

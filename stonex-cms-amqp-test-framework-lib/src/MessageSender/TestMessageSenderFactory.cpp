@@ -19,6 +19,7 @@
 
 #include <MessageSender/TestMessageSenderFactory.h>
 #include <MessageSender/MockMessageSender.h>
+#include <MessageSender/MockProtobufMessageSender.h>
 #include <MessageSender/MockMessageCountingSender.h>
 #include <MessageSender/MockMessageDecoratingSender.h>
 #include <MessageSender/MockMessageCountingDecoratingSender.h>
@@ -26,18 +27,38 @@
 MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const MessageSenderConfiguration & sender_configuration, CMSClientTestUnit & client_configuration, Notifier & parent) const
 {
 
-	if (auto concrete_configuration = dynamic_cast<const MessageCountingSenderConfiguration*>(&sender_configuration)) {
-		return new MockMessageCountingSender(*concrete_configuration, client_configuration, parent);
+	if (auto concrete_configuration = dynamic_cast<const MessageCountingSenderConfiguration*>(&sender_configuration); concrete_configuration && acceptedSenderType(sender_configuration.senderType())) {
+		if (sender_configuration.senderType() == "framework")
+			return new MockMessageCountingSender(*concrete_configuration, client_configuration, parent);
+		else 
+			return nullptr;
 	}
-	else if (auto concrete_configuration = dynamic_cast<const MessageDecoratingSenderConfiguration*>(&sender_configuration)) {
-		return new MockMessageDecoratingSender(*concrete_configuration, client_configuration, parent);
+	else if (auto concrete_configuration = dynamic_cast<const MessageDecoratingSenderConfiguration*>(&sender_configuration); concrete_configuration && acceptedSenderType(sender_configuration.senderType())) {
+		if (sender_configuration.senderType() == "framework")
+			return new MockMessageDecoratingSender(*concrete_configuration, client_configuration, parent);
+		else
+			return nullptr;
 	}
-	else if (auto concrete_configuration = dynamic_cast<const MessageCountingDecoratingSenderConfiguration*>(&sender_configuration)) {
-		return new MockMessageCountingDecoratingSender(*concrete_configuration, client_configuration, parent);
+	else if (auto concrete_configuration = dynamic_cast<const MessageCountingDecoratingSenderConfiguration*>(&sender_configuration); concrete_configuration && acceptedSenderType(sender_configuration.senderType())) {
+		if (sender_configuration.senderType() == "framework")
+			return new MockMessageCountingDecoratingSender(*concrete_configuration, client_configuration, parent);
+		else
+			return nullptr;
 	}
-	else if (auto concrete_configuration = dynamic_cast<const MessageSenderConfiguration*>(&sender_configuration)) {
-		return new MockMessageSender(*concrete_configuration, client_configuration, parent);
+	else if (auto concrete_configuration = dynamic_cast<const MessageSenderConfiguration*>(&sender_configuration); concrete_configuration && acceptedSenderType(sender_configuration.senderType())) {
+		if (sender_configuration.senderType() == "framework")
+			return new MockMessageSender(*concrete_configuration, client_configuration, parent);
+		else if (sender_configuration.senderType() == "framework-protobuf")
+			return new MockProtobufMessageSender(*concrete_configuration, client_configuration, parent);
+		else
+			return nullptr;
 	}
 	else
 		return nullptr;
 }
+
+bool stonex::messaging::test::TestSenderFactory::acceptedSenderType(const std::string & type) const
+{
+	return type == "framework" || type == "framework-protobuf";
+}
+

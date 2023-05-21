@@ -18,10 +18,7 @@
  */
 
 #include <fmt/format.h>
-#include <iostream>
-#include <iomanip>
-#include <ctime>
-#include <sstream>
+#include <fmt/chrono.h>
 #include <MessageSender/MockMessageCountingDecoratingSender.h>
 
 stonex::messaging::test::MockMessageCountingDecoratingSender::MockMessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
@@ -32,29 +29,5 @@ stonex::messaging::test::MockMessageCountingDecoratingSender::MockMessageCountin
 
 std::string stonex::messaging::test::MockMessageCountingDecoratingSender::createMessageBody()
 {
-	return fmt::format("{{\"source\":\"{}\",\"message count\":\"{}\",\"timestamp\":\"{}\",\"properties\":\"{}\"}}",mId, sentMessageCount(), timestamp(), propertiesJson());
-}
-
-std::string stonex::messaging::test::MockMessageCountingDecoratingSender::timestamp() const
-{
-	auto t = std::time(nullptr);
-	auto tm = *std::localtime(&t);
-	std::stringstream timestamp;
-	timestamp << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
-	return timestamp.str();
-}
-
-std::string stonex::messaging::test::MockMessageCountingDecoratingSender::propertiesJson() const
-{
-	std::stringstream property_json;
-	std::for_each(std::cbegin(mMessageDecorations), std::cend(mMessageDecorations), [&property_json](const MessageTestField* item) {
-		property_json<< fmt::format("\"{}\":\"{}\",",item->name(),item->valueString());
-	});
-
-	auto property_json_string =  property_json.str();
-	if (!property_json_string.empty()) {
-
-		property_json_string.pop_back();
-	}
-	return '{' + property_json_string + '}';
+	return fmt::format("{{\"source\":\"{}\",{},{},{}}}", mId, timeStamp(), messageCount(sentMessageCount()), messageProperties(mMessageDecorations));
 }

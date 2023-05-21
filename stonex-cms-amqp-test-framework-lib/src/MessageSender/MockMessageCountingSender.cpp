@@ -18,10 +18,7 @@
  */
 
 #include <fmt/format.h>
-#include <iostream>
-#include <iomanip>
-#include <ctime>
-#include <sstream>
+#include <fmt/chrono.h>
 #include <MessageSender/MockMessageCountingSender.h>
 
 stonex::messaging::test::MockMessageCountingSender::MockMessageCountingSender(const MessageCountingSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
@@ -31,14 +28,5 @@ stonex::messaging::test::MockMessageCountingSender::MockMessageCountingSender(co
 
 std::string stonex::messaging::test::MockMessageCountingSender::createMessageBody()
 {
-	return fmt::format("{{\"source\":\"{}\",\"message count\":\"{}\",\"timestamp\":\"{}\"}}", mId, sentMessageCount(), timestamp());
-}
-
-std::string stonex::messaging::test::MockMessageCountingSender::timestamp() const
-{
-	auto t = std::time(nullptr);
-	auto tm = *std::localtime(&t);
-	std::stringstream timestamp;
-	timestamp << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
-	return timestamp.str();
+	return fmt::format("{{\"source\":\"{}\",{},{}}}", mId, timeStamp(), messageCount(sentMessageCount()));
 }

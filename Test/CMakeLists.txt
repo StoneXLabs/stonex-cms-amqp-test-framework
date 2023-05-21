@@ -15,6 +15,7 @@ target_include_directories(framework-test PUBLIC ${PROJECT_SOURCE_DIR}/main.cpp 
 
 target_link_libraries(framework-test
 	stonex-cms-amqp-test-framework
+	CONAN_PKG::protobuf
 	secur32 
 	crypt32 
 	Ws2_32

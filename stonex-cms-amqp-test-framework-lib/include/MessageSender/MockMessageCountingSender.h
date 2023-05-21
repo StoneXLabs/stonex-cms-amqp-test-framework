@@ -20,18 +20,17 @@
 #pragma once
 
 #include <MessageSender/MessageCountingSender.h>
+#include <Messages/MockMessage.h>
 
 namespace stonex {
 	namespace messaging {
 		namespace test {
 
-			class MockMessageCountingSender : public MessageCountingSender
+			class MockMessageCountingSender : public MessageCountingSender, public MockMessage
 			{
 			public:
 				MockMessageCountingSender(const MessageCountingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
-				std::string createMessageBody();
-			private:
-				std::string timestamp() const;
+				virtual std::string createMessageBody();
 			};
 
 		}

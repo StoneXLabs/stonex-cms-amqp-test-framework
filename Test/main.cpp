@@ -26,6 +26,7 @@
 #include <TestSuite/TestRunner.h>
 #include <MessageReceiver/MessageReceiverFactory.h>
 #include <SpdLogLogger/SpdLogLogger.h>
+#include <Log4CxxLogger/Log4CxxLogger.h>
 
 #include <TestSuite/TestCasePerformer.h>
 
@@ -34,7 +35,7 @@ TEST_CASE_STATUS test_fun(CMSClientTestUnit* a, TestCasePerformer* b) {
 
 	b->sendAll();
 	b->sendAll();
-	std::this_thread::sleep_for(std::chrono::seconds(10));
+	std::this_thread::sleep_for(std::chrono::seconds(3));
 	return TEST_CASE_STATUS::FINISHED;
 };
 
@@ -50,7 +51,8 @@ int main() {
 
 	StdOutTestObserver testObserver;
 	MessageReceiverFactory dummy;
-	std::shared_ptr<SpdLogLogger> logger = std::make_shared<SpdLogLogger>();
+	std::shared_ptr<StonexLogger> logger = std::make_shared<StdOutLogger>();
+	logger->configure("");
 
 	TestRunner testRunner(parser, test_register, dummy, *sender_factory, &testObserver, logger);
 	testRunner.run();

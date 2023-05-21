@@ -29,6 +29,7 @@ namespace stonex {
 			{
 			public:
 				MessageSender * create_sender(const MessageSenderConfiguration & sender_configuration, CMSClientTestUnit & client_configuration, Notifier & parent) const override;
+				bool acceptedSenderType(const std::string& type) const override;
 			};
 		}
 	}
