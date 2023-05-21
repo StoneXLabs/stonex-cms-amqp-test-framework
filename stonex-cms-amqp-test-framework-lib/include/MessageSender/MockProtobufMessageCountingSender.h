@@ -38,20 +38,59 @@
 #pragma once
 
 #include <MessageSender/MockMessageCountingSender.h>
+#include <google/protobuf/util/json_util.h>
+#include <google/protobuf/util/time_util.h>
+#include <fmt/format.h>
 
 namespace stonex {
 	namespace messaging {
 		namespace test {
 
+			template <class T>
 			class MockProtobufMessageCountingSender : public MockMessageCountingSender
 			{
 			public:
-				MockProtobufMessageCountingSender(const MessageCountingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
-				virtual std::string timeStamp() const override;
+				MockProtobufMessageCountingSender(const MessageCountingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+					:MockMessageCountingSender(config, client_params, parent)
+				{
+				};
+
+				virtual std::string timeStamp() const override
+				{
+					auto timestamp = google::protobuf::util::TimeUtil::GetCurrentTime();
+					auto test = google::protobuf::util::TimeUtil::ToString(timestamp);
+					return  fmt::format("\"timestamp\":\"{}\"", test);
+				};
+
 			protected:
-				virtual bool send_bytes(int msg_delay_ms = 0) override;
-				virtual bool send_stream(int msg_delay_ms = 0) override;
-				virtual bool send_map(int msg_delay_ms = 0) override;
+				virtual bool send_bytes(int msg_delay_ms = 0) override
+				{
+					auto message_body = createMessageBody();
+
+					if (message_body.empty())
+						return false;
+
+					if (mSession && mProducer)
+					{
+						T protobuf_message;
+						google::protobuf::util::JsonStringToMessage(message_body, &protobuf_message);
+
+						auto size = protobuf_message.ByteSizeLong();
+						unsigned char* message = (unsigned char*)malloc((size_t)size);
+						protobuf_message.SerializeToArray(message, size);
+
+						auto cms_message = mSession->createBytesMessage(message, protobuf_message.ByteSize());
+						mProducer->send(cms_message);
+						incrementSentCount();
+						free(message);
+						return true;
+					}
+					else
+						return false;
+				};
+
+				virtual bool send_stream(int msg_delay_ms = 0) override { return false; }
+				virtual bool send_map(int msg_delay_ms = 0) override { return false; }
 			};
 		}
 	}

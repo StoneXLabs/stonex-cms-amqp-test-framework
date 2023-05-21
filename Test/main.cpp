@@ -34,7 +34,6 @@
 TEST_CASE_STATUS test_fun(CMSClientTestUnit* a, TestCasePerformer* b) {
 
 	b->sendAll();
-	b->sendAll();
 	std::this_thread::sleep_for(std::chrono::seconds(3));
 	return TEST_CASE_STATUS::FINISHED;
 };
@@ -43,20 +42,40 @@ int main() {
 
 	auto sender_factory = new stonex::messaging::test::TestSenderFactory();
 
-	TestSuiteJsonConfigParser parser("test_case_all.config");
-	auto suite_config = parser.createConfiguration();
+	{
+		TestSuiteJsonConfigParser parser("test_case_all.config");
+		auto suite_config = parser.createConfiguration();
 
-	TestFunctionRegister test_register;
-	test_register.registerTestFunction("test_function_1", test_fun);
+		TestFunctionRegister test_register;
+		test_register.registerTestFunction("test_function_1", test_fun);
 
-	StdOutTestObserver testObserver;
-	MessageReceiverFactory dummy;
-	std::shared_ptr<StonexLogger> logger = std::make_shared<StdOutLogger>();
-	logger->configure("");
+		StdOutTestObserver testObserver;
+		MessageReceiverFactory dummy;
+		std::shared_ptr<StonexLogger> logger = std::make_shared<StdOutLogger>();
+		logger->configure("");
 
-	TestRunner testRunner(parser, test_register, dummy, *sender_factory, &testObserver, logger);
-	testRunner.run();
+		TestRunner testRunner(parser, test_register, dummy, *sender_factory, &testObserver, logger);
+		testRunner.run();
 
+	}
+
+	{
+		TestSuiteJsonConfigParser parser("test_case_all_protobuf.config");
+		auto suite_config = parser.createConfiguration();
+
+		TestFunctionRegister test_register;
+		test_register.registerTestFunction("test_function_1", test_fun);
+
+		StdOutTestObserver testObserver;
+		MessageReceiverFactory dummy;
+		std::shared_ptr<StonexLogger> logger = std::make_shared<StdOutLogger>();
+		logger->configure("");
+
+		TestRunner testRunner(parser, test_register, dummy, *sender_factory, &testObserver, logger);
+		testRunner.run();
+
+	}
+	
 	return 0;
 }
 

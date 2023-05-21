@@ -22,6 +22,7 @@ target_link_libraries(framework-test
 	)
 	
 configure_file(${PROJECT_SOURCE_DIR}/test_case_all.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all.config COPYONLY)    
+configure_file(${PROJECT_SOURCE_DIR}/test_case_all_protobuf.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all_protobuf.config COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_case_all_senders.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all_senders.config COPYONLY)    
 #configure_file(${PROJECT_SOURCE_DIR}/test_case_all_receivers.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all_receivers.config COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_message_file1.txt ${CMAKE_CURRENT_BINARY_DIR}/test_message_file1.txt COPYONLY)    

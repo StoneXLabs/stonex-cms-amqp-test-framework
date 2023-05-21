@@ -26,6 +26,7 @@
 #include <MessageSender/MockProtobufMessageDecoratingSender.h>
 #include <MessageSender/MockMessageCountingDecoratingSender.h>
 #include <MessageSender/MockProtobufMessageCountingDecoratingSender.h>
+#include <messages/mock_message.pb.h>
 
 MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const MessageSenderConfiguration & sender_configuration, CMSClientTestUnit & client_configuration, Notifier & parent) const
 {
@@ -34,7 +35,7 @@ MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const 
 		if (sender_configuration.senderType() == "framework")
 			return new MockMessageCountingSender(*concrete_configuration, client_configuration, parent);
 		else if (sender_configuration.senderType() == "framework-protobuf")
-			return new MockProtobufMessageCountingSender(*concrete_configuration, client_configuration, parent);
+			return new MockProtobufMessageCountingSender<framework::MockMessage>(*concrete_configuration, client_configuration, parent);
 		else 
 			return nullptr;
 	}
@@ -42,7 +43,7 @@ MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const 
 		if (sender_configuration.senderType() == "framework")
 			return new MockMessageDecoratingSender(*concrete_configuration, client_configuration, parent);
 		else if (sender_configuration.senderType() == "framework-protobuf")
-			return new MockProtobufMessageDecoratingSender(*concrete_configuration, client_configuration, parent);
+			return new MockProtobufMessageDecoratingSender<framework::MockMessage>(*concrete_configuration, client_configuration, parent);
 		else
 			return nullptr;
 	}
@@ -50,7 +51,7 @@ MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const 
 		if (sender_configuration.senderType() == "framework")
 			return new MockMessageCountingDecoratingSender(*concrete_configuration, client_configuration, parent);
 		else if (sender_configuration.senderType() == "framework-protobuf")
-			return new MockProtobufMessageCountingDecoratingSender(*concrete_configuration, client_configuration, parent);
+			return new MockProtobufMessageCountingDecoratingSender<framework::MockMessage>(*concrete_configuration, client_configuration, parent);
 		else
 			return nullptr;
 	}
@@ -58,7 +59,7 @@ MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const 
 		if (sender_configuration.senderType() == "framework")
 			return new MockMessageSender(*concrete_configuration, client_configuration, parent);
 		else if (sender_configuration.senderType() == "framework-protobuf")
-			return new MockProtobufMessageSender(*concrete_configuration, client_configuration, parent);
+			return new MockProtobufMessageSender<framework::MockMessage>(*concrete_configuration, client_configuration, parent);
 		else
 			return nullptr;
 	}
