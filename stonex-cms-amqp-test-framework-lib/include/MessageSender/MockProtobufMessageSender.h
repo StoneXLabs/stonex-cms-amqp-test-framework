@@ -41,6 +41,7 @@
 #include <google/protobuf/util/json_util.h>
 #include <google/protobuf/util/time_util.h>
 #include <fmt/format.h>
+#include <Messages/mock_message.pb.h>
 
 namespace stonex {
 	namespace messaging {
@@ -73,7 +74,7 @@ namespace stonex {
 					{
 						T protobuf_message;
 						google::protobuf::util::JsonStringToMessage(message_body, &protobuf_message);
-
+						
 						auto size = protobuf_message.ByteSizeLong();
 						unsigned char* message = (unsigned char*)malloc((size_t)size);
 						protobuf_message.SerializeToArray(message, size);

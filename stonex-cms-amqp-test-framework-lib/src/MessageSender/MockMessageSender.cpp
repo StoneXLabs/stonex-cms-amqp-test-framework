@@ -27,7 +27,7 @@ stonex::messaging::test::MockMessageSender::MockMessageSender(const MessageSende
 
 std::string stonex::messaging::test::MockMessageSender::createMessageBody()
 {
-	return fmt::format("{{\"source\":\"{}\",\"{}\"}}", mId, timeStamp());
+	return fmt::format("{{\"source\":\"{}\",{}}}", mId, timeStamp());
 
 }
 

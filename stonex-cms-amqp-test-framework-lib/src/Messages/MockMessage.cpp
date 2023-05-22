@@ -12,7 +12,7 @@ std::string MockMessage::timeStamp() const
 
 std::string MockMessage::messageCount(long long count) const
 {
-	return fmt::format("\"message count\":{}", count);
+	return fmt::format("\"message_count\":{}", count);
 }
 
 std::string MockMessage::messageProperties(const std::vector<MessageTestField*>& properties) const

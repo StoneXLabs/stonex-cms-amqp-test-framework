@@ -49,9 +49,13 @@ namespace framework {
 class MockMessage;
 struct MockMessageDefaultTypeInternal;
 extern MockMessageDefaultTypeInternal _MockMessage_default_instance_;
+class Properties;
+struct PropertiesDefaultTypeInternal;
+extern PropertiesDefaultTypeInternal _Properties_default_instance_;
 }  // namespace framework
 PROTOBUF_NAMESPACE_OPEN
 template<> ::framework::MockMessage* Arena::CreateMaybeMessage<::framework::MockMessage>(Arena*);
+template<> ::framework::Properties* Arena::CreateMaybeMessage<::framework::Properties>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace framework {
 
@@ -185,6 +189,8 @@ class MockMessage final :
   enum : int {
     kSourceFieldNumber = 1,
     kTimestampFieldNumber = 2,
+    kPropertiesFieldNumber = 4,
+    kMessageCountFieldNumber = 3,
   };
   // optional string source = 1;
   bool has_source() const;
@@ -222,6 +228,37 @@ class MockMessage final :
       ::PROTOBUF_NAMESPACE_ID::Timestamp* timestamp);
   ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_timestamp();
 
+  // optional .framework.Properties properties = 4;
+  bool has_properties() const;
+  private:
+  bool _internal_has_properties() const;
+  public:
+  void clear_properties();
+  const ::framework::Properties& properties() const;
+  PROTOBUF_NODISCARD ::framework::Properties* release_properties();
+  ::framework::Properties* mutable_properties();
+  void set_allocated_properties(::framework::Properties* properties);
+  private:
+  const ::framework::Properties& _internal_properties() const;
+  ::framework::Properties* _internal_mutable_properties();
+  public:
+  void unsafe_arena_set_allocated_properties(
+      ::framework::Properties* properties);
+  ::framework::Properties* unsafe_arena_release_properties();
+
+  // optional int64 message_count = 3;
+  bool has_message_count() const;
+  private:
+  bool _internal_has_message_count() const;
+  public:
+  void clear_message_count();
+  int64_t message_count() const;
+  void set_message_count(int64_t value);
+  private:
+  int64_t _internal_message_count() const;
+  void _internal_set_message_count(int64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:framework.MockMessage)
  private:
   class _Internal;
@@ -233,6 +270,163 @@ class MockMessage final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr source_;
   ::PROTOBUF_NAMESPACE_ID::Timestamp* timestamp_;
+  ::framework::Properties* properties_;
+  int64_t message_count_;
+  friend struct ::TableStruct_mock_5fmessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Properties final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:framework.Properties) */ {
+ public:
+  inline Properties() : Properties(nullptr) {}
+  ~Properties() override;
+  explicit PROTOBUF_CONSTEXPR Properties(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Properties(const Properties& from);
+  Properties(Properties&& from) noexcept
+    : Properties() {
+    *this = ::std::move(from);
+  }
+
+  inline Properties& operator=(const Properties& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Properties& operator=(Properties&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Properties& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Properties* internal_default_instance() {
+    return reinterpret_cast<const Properties*>(
+               &_Properties_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Properties& a, Properties& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Properties* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Properties* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Properties* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Properties>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Properties& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Properties& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Properties* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "framework.Properties";
+  }
+  protected:
+  explicit Properties(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPropertyFieldNumber = 1,
+  };
+  // optional bool property = 1;
+  bool has_property() const;
+  private:
+  bool _internal_has_property() const;
+  public:
+  void clear_property();
+  bool property() const;
+  void set_property(bool value);
+  private:
+  bool _internal_property() const;
+  void _internal_set_property(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:framework.Properties)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  bool property_;
   friend struct ::TableStruct_mock_5fmessage_2eproto;
 };
 // ===================================================================
@@ -401,9 +595,161 @@ inline void MockMessage::set_allocated_timestamp(::PROTOBUF_NAMESPACE_ID::Timest
   // @@protoc_insertion_point(field_set_allocated:framework.MockMessage.timestamp)
 }
 
+// optional int64 message_count = 3;
+inline bool MockMessage::_internal_has_message_count() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool MockMessage::has_message_count() const {
+  return _internal_has_message_count();
+}
+inline void MockMessage::clear_message_count() {
+  message_count_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline int64_t MockMessage::_internal_message_count() const {
+  return message_count_;
+}
+inline int64_t MockMessage::message_count() const {
+  // @@protoc_insertion_point(field_get:framework.MockMessage.message_count)
+  return _internal_message_count();
+}
+inline void MockMessage::_internal_set_message_count(int64_t value) {
+  _has_bits_[0] |= 0x00000008u;
+  message_count_ = value;
+}
+inline void MockMessage::set_message_count(int64_t value) {
+  _internal_set_message_count(value);
+  // @@protoc_insertion_point(field_set:framework.MockMessage.message_count)
+}
+
+// optional .framework.Properties properties = 4;
+inline bool MockMessage::_internal_has_properties() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  PROTOBUF_ASSUME(!value || properties_ != nullptr);
+  return value;
+}
+inline bool MockMessage::has_properties() const {
+  return _internal_has_properties();
+}
+inline void MockMessage::clear_properties() {
+  if (properties_ != nullptr) properties_->Clear();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const ::framework::Properties& MockMessage::_internal_properties() const {
+  const ::framework::Properties* p = properties_;
+  return p != nullptr ? *p : reinterpret_cast<const ::framework::Properties&>(
+      ::framework::_Properties_default_instance_);
+}
+inline const ::framework::Properties& MockMessage::properties() const {
+  // @@protoc_insertion_point(field_get:framework.MockMessage.properties)
+  return _internal_properties();
+}
+inline void MockMessage::unsafe_arena_set_allocated_properties(
+    ::framework::Properties* properties) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(properties_);
+  }
+  properties_ = properties;
+  if (properties) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:framework.MockMessage.properties)
+}
+inline ::framework::Properties* MockMessage::release_properties() {
+  _has_bits_[0] &= ~0x00000004u;
+  ::framework::Properties* temp = properties_;
+  properties_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::framework::Properties* MockMessage::unsafe_arena_release_properties() {
+  // @@protoc_insertion_point(field_release:framework.MockMessage.properties)
+  _has_bits_[0] &= ~0x00000004u;
+  ::framework::Properties* temp = properties_;
+  properties_ = nullptr;
+  return temp;
+}
+inline ::framework::Properties* MockMessage::_internal_mutable_properties() {
+  _has_bits_[0] |= 0x00000004u;
+  if (properties_ == nullptr) {
+    auto* p = CreateMaybeMessage<::framework::Properties>(GetArenaForAllocation());
+    properties_ = p;
+  }
+  return properties_;
+}
+inline ::framework::Properties* MockMessage::mutable_properties() {
+  ::framework::Properties* _msg = _internal_mutable_properties();
+  // @@protoc_insertion_point(field_mutable:framework.MockMessage.properties)
+  return _msg;
+}
+inline void MockMessage::set_allocated_properties(::framework::Properties* properties) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete properties_;
+  }
+  if (properties) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(properties);
+    if (message_arena != submessage_arena) {
+      properties = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, properties, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  properties_ = properties;
+  // @@protoc_insertion_point(field_set_allocated:framework.MockMessage.properties)
+}
+
+// -------------------------------------------------------------------
+
+// Properties
+
+// optional bool property = 1;
+inline bool Properties::_internal_has_property() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Properties::has_property() const {
+  return _internal_has_property();
+}
+inline void Properties::clear_property() {
+  property_ = false;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline bool Properties::_internal_property() const {
+  return property_;
+}
+inline bool Properties::property() const {
+  // @@protoc_insertion_point(field_get:framework.Properties.property)
+  return _internal_property();
+}
+inline void Properties::_internal_set_property(bool value) {
+  _has_bits_[0] |= 0x00000001u;
+  property_ = value;
+}
+inline void Properties::set_property(bool value) {
+  _internal_set_property(value);
+  // @@protoc_insertion_point(field_set:framework.Properties.property)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

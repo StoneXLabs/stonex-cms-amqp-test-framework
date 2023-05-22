@@ -24,7 +24,9 @@ namespace framework {
 PROTOBUF_CONSTEXPR MockMessage::MockMessage(
     ::_pbi::ConstantInitialized)
   : source_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , timestamp_(nullptr){}
+  , timestamp_(nullptr)
+  , properties_(nullptr)
+  , message_count_(int64_t{0}){}
 struct MockMessageDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MockMessageDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -34,8 +36,20 @@ struct MockMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MockMessageDefaultTypeInternal _MockMessage_default_instance_;
+PROTOBUF_CONSTEXPR Properties::Properties(
+    ::_pbi::ConstantInitialized)
+  : property_(false){}
+struct PropertiesDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PropertiesDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PropertiesDefaultTypeInternal() {}
+  union {
+    Properties _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PropertiesDefaultTypeInternal _Properties_default_instance_;
 }  // namespace framework
-static ::_pb::Metadata file_level_metadata_mock_5fmessage_2eproto[1];
+static ::_pb::Metadata file_level_metadata_mock_5fmessage_2eproto[2];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_mock_5fmessage_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_mock_5fmessage_2eproto = nullptr;
 
@@ -48,31 +62,48 @@ const uint32_t TableStruct_mock_5fmessage_2eproto::offsets[] PROTOBUF_SECTION_VA
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::framework::MockMessage, source_),
   PROTOBUF_FIELD_OFFSET(::framework::MockMessage, timestamp_),
+  PROTOBUF_FIELD_OFFSET(::framework::MockMessage, message_count_),
+  PROTOBUF_FIELD_OFFSET(::framework::MockMessage, properties_),
   0,
   1,
+  3,
+  2,
+  PROTOBUF_FIELD_OFFSET(::framework::Properties, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::framework::Properties, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::framework::Properties, property_),
+  0,
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::framework::MockMessage)},
+  { 0, 10, -1, sizeof(::framework::MockMessage)},
+  { 14, 21, -1, sizeof(::framework::Properties)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::framework::_MockMessage_default_instance_._instance,
+  &::framework::_Properties_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_mock_5fmessage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\022mock_message.proto\022\tframework\032\037google/"
-  "protobuf/timestamp.proto\"L\n\013MockMessage\022"
-  "\016\n\006source\030\001 \001(\t\022-\n\ttimestamp\030\002 \001(\0132\032.goo"
-  "gle.protobuf.Timestamp"
+  "protobuf/timestamp.proto\"\216\001\n\013MockMessage"
+  "\022\016\n\006source\030\001 \001(\t\022-\n\ttimestamp\030\002 \001(\0132\032.go"
+  "ogle.protobuf.Timestamp\022\025\n\rmessage_count"
+  "\030\003 \001(\003\022)\n\nproperties\030\004 \001(\0132\025.framework.P"
+  "roperties\"\036\n\nProperties\022\020\n\010property\030\001 \001("
+  "\010"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_mock_5fmessage_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_mock_5fmessage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_mock_5fmessage_2eproto = {
-    false, false, 142, descriptor_table_protodef_mock_5fmessage_2eproto,
+    false, false, 241, descriptor_table_protodef_mock_5fmessage_2eproto,
     "mock_message.proto",
-    &descriptor_table_mock_5fmessage_2eproto_once, descriptor_table_mock_5fmessage_2eproto_deps, 1, 1,
+    &descriptor_table_mock_5fmessage_2eproto_once, descriptor_table_mock_5fmessage_2eproto_deps, 1, 2,
     schemas, file_default_instances, TableStruct_mock_5fmessage_2eproto::offsets,
     file_level_metadata_mock_5fmessage_2eproto, file_level_enum_descriptors_mock_5fmessage_2eproto,
     file_level_service_descriptors_mock_5fmessage_2eproto,
@@ -97,11 +128,22 @@ class MockMessage::_Internal {
   static void set_has_timestamp(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_message_count(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static const ::framework::Properties& properties(const MockMessage* msg);
+  static void set_has_properties(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 const ::PROTOBUF_NAMESPACE_ID::Timestamp&
 MockMessage::_Internal::timestamp(const MockMessage* msg) {
   return *msg->timestamp_;
+}
+const ::framework::Properties&
+MockMessage::_Internal::properties(const MockMessage* msg) {
+  return *msg->properties_;
 }
 void MockMessage::clear_timestamp() {
   if (timestamp_ != nullptr) timestamp_->Clear();
@@ -130,6 +172,12 @@ MockMessage::MockMessage(const MockMessage& from)
   } else {
     timestamp_ = nullptr;
   }
+  if (from._internal_has_properties()) {
+    properties_ = new ::framework::Properties(*from.properties_);
+  } else {
+    properties_ = nullptr;
+  }
+  message_count_ = from.message_count_;
   // @@protoc_insertion_point(copy_constructor:framework.MockMessage)
 }
 
@@ -138,7 +186,10 @@ source_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   source_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-timestamp_ = nullptr;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&timestamp_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&message_count_) -
+    reinterpret_cast<char*>(&timestamp_)) + sizeof(message_count_));
 }
 
 MockMessage::~MockMessage() {
@@ -154,6 +205,7 @@ inline void MockMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   source_.Destroy();
   if (this != internal_default_instance()) delete timestamp_;
+  if (this != internal_default_instance()) delete properties_;
 }
 
 void MockMessage::SetCachedSize(int size) const {
@@ -167,7 +219,7 @@ void MockMessage::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       source_.ClearNonDefaultToEmpty();
     }
@@ -175,7 +227,12 @@ void MockMessage::Clear() {
       GOOGLE_DCHECK(timestamp_ != nullptr);
       timestamp_->Clear();
     }
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(properties_ != nullptr);
+      properties_->Clear();
+    }
   }
+  message_count_ = int64_t{0};
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -203,6 +260,23 @@ const char* MockMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_timestamp(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int64 message_count = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _Internal::set_has_message_count(&has_bits);
+          message_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .framework.Properties properties = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_properties(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -255,6 +329,19 @@ uint8_t* MockMessage::_InternalSerialize(
         _Internal::timestamp(this).GetCachedSize(), target, stream);
   }
 
+  // optional int64 message_count = 3;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_message_count(), target);
+  }
+
+  // optional .framework.Properties properties = 4;
+  if (cached_has_bits & 0x00000004u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::properties(this),
+        _Internal::properties(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -272,7 +359,7 @@ size_t MockMessage::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string source = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -285,6 +372,18 @@ size_t MockMessage::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *timestamp_);
+    }
+
+    // optional .framework.Properties properties = 4;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *properties_);
+    }
+
+    // optional int64 message_count = 3;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_message_count());
     }
 
   }
@@ -311,13 +410,20 @@ void MockMessage::MergeFrom(const MockMessage& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_source(from._internal_source());
     }
     if (cached_has_bits & 0x00000002u) {
       _internal_mutable_timestamp()->::PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_timestamp());
     }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_mutable_properties()->::framework::Properties::MergeFrom(from._internal_properties());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      message_count_ = from.message_count_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -343,7 +449,12 @@ void MockMessage::InternalSwap(MockMessage* other) {
       &source_, lhs_arena,
       &other->source_, rhs_arena
   );
-  swap(timestamp_, other->timestamp_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(MockMessage, message_count_)
+      + sizeof(MockMessage::message_count_)
+      - PROTOBUF_FIELD_OFFSET(MockMessage, timestamp_)>(
+          reinterpret_cast<char*>(&timestamp_),
+          reinterpret_cast<char*>(&other->timestamp_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MockMessage::GetMetadata() const {
@@ -352,12 +463,199 @@ void MockMessage::InternalSwap(MockMessage* other) {
       file_level_metadata_mock_5fmessage_2eproto[0]);
 }
 
+// ===================================================================
+
+class Properties::_Internal {
+ public:
+  using HasBits = decltype(std::declval<Properties>()._has_bits_);
+  static void set_has_property(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+Properties::Properties(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:framework.Properties)
+}
+Properties::Properties(const Properties& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  property_ = from.property_;
+  // @@protoc_insertion_point(copy_constructor:framework.Properties)
+}
+
+inline void Properties::SharedCtor() {
+property_ = false;
+}
+
+Properties::~Properties() {
+  // @@protoc_insertion_point(destructor:framework.Properties)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Properties::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void Properties::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Properties::Clear() {
+// @@protoc_insertion_point(message_clear_start:framework.Properties)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  property_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Properties::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool property = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_property(&has_bits);
+          property_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Properties::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:framework.Properties)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool property = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_property(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:framework.Properties)
+  return target;
+}
+
+size_t Properties::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:framework.Properties)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bool property = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Properties::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Properties::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Properties::GetClassData() const { return &_class_data_; }
+
+void Properties::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Properties *>(to)->MergeFrom(
+      static_cast<const Properties &>(from));
+}
+
+
+void Properties::MergeFrom(const Properties& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:framework.Properties)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_property()) {
+    _internal_set_property(from._internal_property());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Properties::CopyFrom(const Properties& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:framework.Properties)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Properties::IsInitialized() const {
+  return true;
+}
+
+void Properties::InternalSwap(Properties* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(property_, other->property_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Properties::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_mock_5fmessage_2eproto_getter, &descriptor_table_mock_5fmessage_2eproto_once,
+      file_level_metadata_mock_5fmessage_2eproto[1]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace framework
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::framework::MockMessage*
 Arena::CreateMaybeMessage< ::framework::MockMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::framework::MockMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::framework::Properties*
+Arena::CreateMaybeMessage< ::framework::Properties >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::framework::Properties >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
