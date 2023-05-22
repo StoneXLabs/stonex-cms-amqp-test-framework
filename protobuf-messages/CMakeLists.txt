@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_FIND_DEBUG_MODE TRUE)
 find_package(protobuf REQUIRED)
-message(DUPA  ${Protobuf_VERSION} \n ${Protobuf_PROTOC_EXECUTABLE} \n ${Protobuf_INCLUDE_DIRS} \n ${PROJECT_SOURCE_DIR}/messages \n\n)
 
 include_directories(${Protobuf_INCLUDE_DIRS} )
 
