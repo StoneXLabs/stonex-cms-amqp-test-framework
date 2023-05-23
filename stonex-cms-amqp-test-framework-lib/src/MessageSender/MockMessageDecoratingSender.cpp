@@ -22,7 +22,8 @@
 #include <MessageSender/MockMessageDecoratingSender.h>
 
 stonex::messaging::test::MockMessageDecoratingSender::MockMessageDecoratingSender(const MessageDecoratingSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
-	:MessageDecoratingSender(config, client_params, parent),
+	:MessageSender(config, client_params, parent),
+	MessageDecorator(config.decorations()),
 	mMessageDecorations(config.decorations())
 {
 }
@@ -30,4 +31,49 @@ stonex::messaging::test::MockMessageDecoratingSender::MockMessageDecoratingSende
 std::string stonex::messaging::test::MockMessageDecoratingSender::createMessageBody()
 {
 	return fmt::format("{{\"source\":\"{}\",{},{}}}", mId, timeStamp(), messageProperties(mMessageDecorations));
+}
+
+MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageDecoratingSender::send_text(int msg_delay_ms)
+{
+	auto message_body = createMessageBody();
+	if (message_body.empty())
+		return MESSAGE_SEND_STATUS::FAILED;
+
+
+	if (mSession && mProducer)
+	{
+		auto message = mSession->createTextMessage(message_body);
+		decorate(message, mSession);
+		mProducer->send(message);
+		return MESSAGE_SEND_STATUS::ALL_SENT;
+	}
+	else
+		return MESSAGE_SEND_STATUS::FAILED;
+}
+
+MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageDecoratingSender::send_bytes(int msg_delay_ms)
+{
+	auto message_body = createMessageBody();
+	if (message_body.empty())
+		return MESSAGE_SEND_STATUS::FAILED;
+
+	if (mSession && mProducer)
+	{
+		auto message = mSession->createBytesMessage((const unsigned char*)message_body.c_str(), message_body.size());
+		decorate(message, mSession);
+		mProducer->send(message);
+		return MESSAGE_SEND_STATUS::ALL_SENT;
+	}
+	else
+		return MESSAGE_SEND_STATUS::FAILED;
+}
+
+MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageDecoratingSender::send_stream(int msg_delay_ms)
+{
+	return MESSAGE_SEND_STATUS::SEND_ERROR;
+}
+
+MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageDecoratingSender::send_map(int msg_delay_ms)
+{
+	return MESSAGE_SEND_STATUS::SEND_ERROR;
 }

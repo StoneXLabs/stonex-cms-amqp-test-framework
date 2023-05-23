@@ -36,7 +36,10 @@ target_include_directories(stonex-cms-amqp-test-framework
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src
 	)
 
-target_link_libraries(stonex-cms-amqp-test-framework CONAN_PKG::stonex-cms-amqp-test-engine CONAN_PKG::protobuf protobuf-messages)
+target_link_libraries(stonex-cms-amqp-test-framework 
+	CONAN_PKG::stonex-cms-amqp-test-engine 
+	CONAN_PKG::protobuf protobuf-messages
+	)
 
 add_subdirectory(Test)
   

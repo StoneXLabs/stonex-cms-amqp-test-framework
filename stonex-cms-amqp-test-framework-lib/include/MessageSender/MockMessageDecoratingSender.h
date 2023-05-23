@@ -19,18 +19,24 @@
 
 #pragma once
 
-#include <MessageSender/MessageDecoratingSender.h>
+#include <MessageSender/MessageSender.h>
+#include <Configuration/MessageDecoratingSenderConfiguration.h>
+#include <utils/MessageDecorator.h>
 #include <Messages/MockMessage.h>
 
 namespace stonex {
 	namespace messaging {
 		namespace test {
 
-			class MockMessageDecoratingSender : public MessageDecoratingSender, public MockMessage
+			class MockMessageDecoratingSender : public MessageSender, public MessageDecorator, public MockMessage
 			{
 			public:
 				MockMessageDecoratingSender(const MessageDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
 				virtual std::string createMessageBody();
+				virtual MESSAGE_SEND_STATUS send_text(int msg_delay_ms = 0) override;
+				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override;
+				virtual MESSAGE_SEND_STATUS send_stream(int msg_delay_ms = 0) override;
+				virtual MESSAGE_SEND_STATUS send_map(int msg_delay_ms = 0) override;
 			private:
 				std::vector <MessageTestField*> mMessageDecorations;
 			};

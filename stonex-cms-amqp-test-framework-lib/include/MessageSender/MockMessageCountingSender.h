@@ -19,18 +19,24 @@
 
 #pragma once
 
-#include <MessageSender/MessageCountingSender.h>
+#include <MessageSender/MessageSender.h>
+#include <Configuration/MessageCountingSenderConfiguration.h>
+#include <utils/SentMessageCounter.h>
 #include <Messages/MockMessage.h>
 
 namespace stonex {
 	namespace messaging {
 		namespace test {
 
-			class MockMessageCountingSender : public MessageCountingSender, public MockMessage
+			class MockMessageCountingSender : public MessageSender, public SentMessageCounter, public MockMessage
 			{
 			public:
 				MockMessageCountingSender(const MessageCountingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
 				virtual std::string createMessageBody();
+				virtual MESSAGE_SEND_STATUS send_text(int msg_delay_ms = 0) override;
+				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override;
+				virtual MESSAGE_SEND_STATUS send_stream(int msg_delay_ms = 0) override;
+				virtual MESSAGE_SEND_STATUS send_map(int msg_delay_ms = 0) override;
 			};
 
 		}

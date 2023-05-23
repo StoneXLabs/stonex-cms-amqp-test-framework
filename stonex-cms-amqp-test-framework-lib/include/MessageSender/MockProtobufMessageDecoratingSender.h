@@ -64,12 +64,12 @@ namespace stonex {
 				};
 
 			protected:
-				virtual bool send_bytes(int msg_delay_ms = 0) override
+				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override
 				{
 					auto message_body = createMessageBody();
 
 					if (message_body.empty())
-						return false;
+						return MESSAGE_SEND_STATUS::FAILED;
 
 					if (mSession && mProducer)
 					{
@@ -84,14 +84,14 @@ namespace stonex {
 						decorate(cms_message, mSession);
 						mProducer->send(cms_message);
 						free(message);
-						return true;
+						return MESSAGE_SEND_STATUS::SUCCESS;
 					}
 					else
-						return false;
+						return MESSAGE_SEND_STATUS::FAILED;
 				};
 
-				virtual bool send_stream(int msg_delay_ms = 0) override { return false; }
-				virtual bool send_map(int msg_delay_ms = 0) override { return false; }
+				virtual MESSAGE_SEND_STATUS send_stream(int msg_delay_ms = 0) override { return MESSAGE_SEND_STATUS::SEND_ERROR; }
+				virtual MESSAGE_SEND_STATUS send_map(int msg_delay_ms = 0) override { return MESSAGE_SEND_STATUS::SEND_ERROR; }
 			};
 		}
 	}
