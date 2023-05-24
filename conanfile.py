@@ -44,6 +44,12 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
         self.copy("*.h", dst="include",src="stonex-cms-amqp-test-framework-lib/include")
         self.copy("*.lib", dst="lib",src="lib", keep_path=False)
         self.copy("*.pdb", dst="lib",src="lib", keep_path=False)
+        
+        self.copy("*.exe", dst="bin",src="bin", keep_path=False)
+        
+        self.copy("*.config", dst="bin",src="Test")
+        
+        self.copy("*message*.txt", dst="bin",src="Test")
 
     def package_info(self):
         self.cpp_info.libs = self.collect_libs()
