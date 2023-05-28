@@ -43,9 +43,10 @@ MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageCountingSender::send_tex
 
 	if (mSession && mProducer)
 	{
-		auto mes = mSession->createTextMessage(message_body);
-		mProducer->send(mes);
+		auto message = mSession->createTextMessage(message_body);
+		mProducer->send(message);
 		incrementSentCount();
+		delete message;
 		if (expectedEventCount() == sentMessageCount())
 			return MESSAGE_SEND_STATUS::ALL_SENT;
 		else if (expectedEventCount() < sentMessageCount())
@@ -71,6 +72,7 @@ MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageCountingSender::send_byt
 		auto message = mSession->createBytesMessage((const unsigned char*)message_body.c_str(), message_body.size());
 		mProducer->send(message);
 		incrementSentCount();
+		delete message;
 		if (expectedEventCount() == sentMessageCount())
 			return MESSAGE_SEND_STATUS::ALL_SENT;
 		else if (expectedEventCount() < sentMessageCount())

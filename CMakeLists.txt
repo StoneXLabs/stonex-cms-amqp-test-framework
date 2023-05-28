@@ -10,16 +10,12 @@ set(CMAKE_CXX_STANDARD 20)
 add_subdirectory(protobuf-messages)
 
 file(GLOB sourceFiles
-	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/Metrics/*.cpp 
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/MessageSender/*.cpp 
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/Messages/*.cpp 
-	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/messages/*.cpp 
 	)
 file(GLOB headerFiles
-	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/include/Metrics/*.h 
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/include/MessageSender/*.h 
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/include/Messages/*.h 
-	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/messages/*.h 
 	)
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${sourceFiles} ${headerFiles} )

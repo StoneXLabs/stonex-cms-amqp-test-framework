@@ -48,6 +48,7 @@ MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageCountingDecoratingSender
 		decorate(message, mSession);
 		mProducer->send(message);
 		incrementSentCount();
+		delete message;
 		if (expectedEventCount() == sentMessageCount())
 			return MESSAGE_SEND_STATUS::ALL_SENT;
 		else if (expectedEventCount() < sentMessageCount())
@@ -74,6 +75,7 @@ MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageCountingDecoratingSender
 		decorate(message, mSession);
 		mProducer->send(message);
 		incrementSentCount();
+		delete message;
 		if (expectedEventCount() == sentMessageCount())
 			return MESSAGE_SEND_STATUS::ALL_SENT;
 		else if (expectedEventCount() < sentMessageCount())

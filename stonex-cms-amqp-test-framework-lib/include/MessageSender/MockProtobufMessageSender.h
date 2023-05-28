@@ -65,6 +65,7 @@ namespace stonex {
 			protected:
 				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override
 				{
+
 					auto message_body = createMessageBody();
 
 					if (message_body.empty())
@@ -81,8 +82,9 @@ namespace stonex {
 
 						auto cms_message = mSession->createBytesMessage(message, protobuf_message.ByteSize());
 						mProducer->send(cms_message);
+						delete cms_message;
 						free(message);
-						return MESSAGE_SEND_STATUS::SUCCESS;
+						return MESSAGE_SEND_STATUS::ALL_SENT;
 					}
 					else
 						return MESSAGE_SEND_STATUS::FAILED;

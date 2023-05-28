@@ -65,6 +65,9 @@ namespace stonex {
 			protected:
 				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override
 				{
+					if (expectedEventCount() == sentMessageCount())
+						return MESSAGE_SEND_STATUS::ALL_SENT;
+
 					auto message_body = createMessageBody();
 
 					if (message_body.empty())
@@ -83,6 +86,7 @@ namespace stonex {
 						decorate(cms_message, mSession);
 						mProducer->send(cms_message);
 						incrementSentCount();
+						delete cms_message;
 						free(message);
 						return MESSAGE_SEND_STATUS::SUCCESS;
 					}

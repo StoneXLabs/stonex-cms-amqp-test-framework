@@ -45,6 +45,7 @@ MESSAGE_SEND_STATUS stonex::messaging::test::MockMessageDecoratingSender::send_t
 		auto message = mSession->createTextMessage(message_body);
 		decorate(message, mSession);
 		mProducer->send(message);
+		delete message;
 		return MESSAGE_SEND_STATUS::ALL_SENT;
 	}
 	else
