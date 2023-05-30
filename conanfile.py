@@ -18,7 +18,7 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
-    requires = ["stonex-cms-amqp-test-engine/1.0.0@enterprise_messaging/test", "protobuf/3.20.1@enterprise_messaging/test"]
+    requires = ["stonex-cms-amqp-test-engine/1.1.0@enterprise_messaging/test", "protobuf/3.20.1@enterprise_messaging/test"]
     generators = "cmake"
 
     def config_options(self):
@@ -26,7 +26,8 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
             del self.options.fPIC
 
     def source(self):
-        pass
+         self.run("git clone https://github.com/StoneXLabs/stonex-cms-amqp-test-framework.git")
+
         #self.run("git clone https://github.com/conan-io/hello.git")
         # This small hack might be useful to guarantee proper /MT /MD linkage
         # in MSVC if the packaged project doesn't have variables to set it

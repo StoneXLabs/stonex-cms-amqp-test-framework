@@ -15,10 +15,10 @@ std::string MockMessage::messageCount(long long count) const
 	return fmt::format("\"message_count\":{}", count);
 }
 
-std::string MockMessage::messageProperties(const std::vector<MessageTestField*>& properties) const
+std::string MockMessage::messageProperties(const std::vector<MessageField*>& properties) const
 {
 	std::stringstream property_json;
-	std::for_each(std::cbegin(properties), std::cend(properties), [&property_json](const MessageTestField* item) {
+	std::for_each(std::cbegin(properties), std::cend(properties), [&property_json](const MessageField* item) {
 		switch (item->type())
 		{
 		case FIELD_TYPE::BOOLEANPROPERTY:

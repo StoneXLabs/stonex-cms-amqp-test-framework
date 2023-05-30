@@ -38,7 +38,7 @@ namespace stonex {
 				virtual MESSAGE_SEND_STATUS send_stream(int msg_delay_ms = 0) override;
 				virtual MESSAGE_SEND_STATUS send_map(int msg_delay_ms = 0) override;
 			private:
-				std::vector <MessageTestField*> mMessageDecorations;
+				std::vector <MessageField*> mMessageDecorations;
 			};
 
 		}
