@@ -18,9 +18,16 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
-    requires = ["stonex-cms-amqp-test-engine/1.1.0@enterprise_messaging/test", "protobuf/3.20.1@enterprise_messaging/test"]
     generators = "cmake"
 
+    def build_requirements(self):
+        self.build_requires("stonex-cms-amqp-test-engine/1.1.0@enterprise_messaging/test")
+        self.build_requires("protobuf/3.20.1@enterprise_messaging/test")
+        self.build_requires("fmt/9.1.0@enterprise_messaging/test")
+        self.build_requires("boost/1.78.0@enterprise_messaging/stable")
+        self.build_requires("stonex-logger-wrapper/0.0.2@enterprise_messaging/test")
+        self.build_requires("stonex-cms-amqp-lib/0.2.2@enterprise_messaging/test")
+        
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC

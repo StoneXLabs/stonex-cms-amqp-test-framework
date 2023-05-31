@@ -30,11 +30,17 @@ add_library(stonex-cms-amqp-test-framework
 target_include_directories(stonex-cms-amqp-test-framework
 	PUBLIC ${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/include
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src
+	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/include/activemq-cpp/src/main
 	)
 
 target_link_libraries(stonex-cms-amqp-test-framework 
+	CONAN_PKG::stonex-cms-amqp-lib
 	CONAN_PKG::stonex-cms-amqp-test-engine 
-	CONAN_PKG::protobuf protobuf-messages
+	CONAN_PKG::protobuf 
+	CONAN_PKG::fmt
+	CONAN_PKG::boost
+	CONAN_PKG::stonex-logger-wrapper
+	protobuf-messages
 	)
 
 add_subdirectory(Test)
