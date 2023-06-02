@@ -47,11 +47,11 @@ namespace stonex {
 		namespace test {
 
 			template <class T>
-			class MockProtobufMessageCountingDecoratingSender : public MockMessageCountingDecoratingSender
+			class ProtobufMessageCountingDecoratingSender : public MessageCountingDecoratingSender
 			{
 			public:
-				MockProtobufMessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
-					:MockMessageCountingDecoratingSender(config, client_params, parent)
+				ProtobufMessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+					:MessageCountingDecoratingSender(config, client_params, parent)
 				{
 				}
 

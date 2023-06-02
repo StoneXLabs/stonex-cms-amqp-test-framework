@@ -24,8 +24,12 @@ target_link_libraries(framework-test
 configure_file(${PROJECT_SOURCE_DIR}/test_case_all.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all.config COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_case_all_protobuf.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all_protobuf.config COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_case_all_senders.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all_senders.config COPYONLY)    
-#configure_file(${PROJECT_SOURCE_DIR}/test_case_all_receivers.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all_receivers.config COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_message_file1.txt ${CMAKE_CURRENT_BINARY_DIR}/test_message_file1.txt COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_message_file2.txt ${CMAKE_CURRENT_BINARY_DIR}/test_message_file2.txt COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_message_file3.txt ${CMAKE_CURRENT_BINARY_DIR}/test_message_file3.txt COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_message_file4.txt ${CMAKE_CURRENT_BINARY_DIR}/test_message_file4.txt COPYONLY)  
+  
+configure_file(${PROJECT_SOURCE_DIR}/mock_messages_test.txt ${CMAKE_CURRENT_BINARY_DIR}/mock_messages_test.txt COPYONLY)    
+configure_file(${PROJECT_SOURCE_DIR}/mock_messages_counting_test.txt ${CMAKE_CURRENT_BINARY_DIR}/mock_messages_counting_test.txt COPYONLY)    
+configure_file(${PROJECT_SOURCE_DIR}/mock_messages_decorating_test.txt ${CMAKE_CURRENT_BINARY_DIR}/mock_messages_decorating_test.txt COPYONLY)    
+configure_file(${PROJECT_SOURCE_DIR}/mock_messages_counting_decorating_test.txt ${CMAKE_CURRENT_BINARY_DIR}/mock_messages_counting_decorating_test.txt COPYONLY)  

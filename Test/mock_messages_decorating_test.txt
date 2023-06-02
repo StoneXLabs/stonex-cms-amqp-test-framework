@@ -1,0 +1,10 @@
+{"source":"file_producer","timestamp":"2023-06-02T08:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T09:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T10:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T11:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T12:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T13:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T14:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T15:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T16:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T17:33:18Z", "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}

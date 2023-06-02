@@ -37,7 +37,7 @@
 
 #pragma once
 
-#include <MessageSender/MessageD>
+
 #include <MessageSender/MessageCountingDecoratingFileSender.h>
 #include <google/protobuf/util/json_util.h>
 #include <google/protobuf/util/time_util.h>
@@ -48,17 +48,12 @@ namespace stonex {
 		namespace test {
 
 			template <class T>
-			class MockProtobufMessageCountingDecoratingFileSender : public MessageCountingDecoratingFileSender
+			class ProtobufMessageCountingDecoratingFileSender : public MessageCountingDecoratingFileSender
 			{
 			public:
-				MockProtobufMessageCountingDecoratingFileSender(const MessageCountingDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+				ProtobufMessageCountingDecoratingFileSender(const MessageCountingDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
 					:MessageCountingDecoratingFileSender(config, client_params, parent)
 				{
-				}
-
-				virtual std::string timeStamp() const override
-				{
-					return  fmt::format("\"timestamp\":\"{}\"", google::protobuf::util::TimeUtil::ToString(google::protobuf::util::TimeUtil::GetCurrentTime()));
 				}
 
 			protected:

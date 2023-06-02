@@ -30,10 +30,10 @@ namespace stonex {
 	namespace messaging {
 		namespace test {
 
-			class MockMessageCountingDecoratingSender : public MessageCountingDecoratingSender, public MockMessage
+			class MessageCountingDecoratingSender : public MessageCountingDecoratingSender, public MockMessage
 			{
 			public:
-				MockMessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
+				MessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
 				virtual std::string createMessageBody() override;
 			private:
 				std::vector <MessageField*> mMessageDecorations;

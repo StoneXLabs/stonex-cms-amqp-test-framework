@@ -48,18 +48,14 @@ namespace stonex {
 		namespace test {
 
 			template <class T>
-			class MockProtobufMessageFileSender : public MessageFileSender
+			class ProtobufMessageFileSender : public MessageFileSender
 			{
 			public:
-				MockProtobufMessageFileSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+				ProtobufMessageFileSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
 					:MessageFileSender(config, client_params, parent)
 				{
 				};
 
-				virtual std::string timeStamp() const override
-				{
-					return  fmt::format("\"timestamp\":\"{}\"", google::protobuf::util::TimeUtil::ToString(google::protobuf::util::TimeUtil::GetCurrentTime()));
-				};
 			protected:
 				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override
 				{

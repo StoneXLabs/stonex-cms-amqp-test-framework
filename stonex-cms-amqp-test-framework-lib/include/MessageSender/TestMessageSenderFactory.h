@@ -28,8 +28,11 @@ namespace stonex {
 			class TestSenderFactory : public MessageSenderFactory
 			{
 			public:
-				MessageSender * create_sender(const MessageSenderConfiguration & sender_configuration, CMSClientTestUnit & client_configuration, Notifier & parent) const override;
-				bool acceptedSenderType(const std::string& type) const override;
+				TestSenderFactory();
+			protected:
+				virtual MessageSender* create_sender(const MessageSenderConfiguration& sender_configuration, CMSClientTestUnit& client_configuration, Notifier& parent)  const;
+			private:
+				const std::vector<std::string> mProduceType;
 			};
 		}
 	}

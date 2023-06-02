@@ -21,12 +21,12 @@
 #include <fmt/chrono.h>
 #include <MessageSender/MockMessageCountingDecoratingSender.h>
 
-stonex::messaging::test::MockMessageCountingDecoratingSender::MockMessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
+stonex::messaging::test::MessageCountingDecoratingSender::MessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration & config, CMSClientTestUnit & client_params, Notifier & parent)
 	:MessageCountingDecoratingSender(config, client_params, parent)
 {
 }
 
-std::string stonex::messaging::test::MockMessageCountingDecoratingSender::createMessageBody()
+std::string stonex::messaging::test::MessageCountingDecoratingSender::createMessageBody()
 {
 	return fmt::format("{{\"source\":\"{}\",{},{},{}}}", mId, timeStamp(), messageCount(sentMessageCount()), messageProperties(mMessageDecorations));
 }
