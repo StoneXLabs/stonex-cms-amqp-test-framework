@@ -51,7 +51,7 @@ namespace stonex {
 			class ProtobufMessageFileSender : public MessageFileSender
 			{
 			public:
-				ProtobufMessageFileSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+				ProtobufMessageFileSender(const FileMessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
 					:MessageFileSender(config, client_params, parent)
 				{
 				};

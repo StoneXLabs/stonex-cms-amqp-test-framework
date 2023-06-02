@@ -50,7 +50,7 @@ namespace stonex {
 			class ProtobufMessageCountingFileSender : public MessageCountingFileSender
 			{
 			public:
-				ProtobufMessageCountingFileSender(const MessageCountingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+				ProtobufMessageCountingFileSender(const FileMessageCountingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
 					:MessageCountingFileSender(config, client_params, parent)
 				{
 				};

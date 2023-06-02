@@ -21,7 +21,7 @@ file(GLOB headerFiles
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${sourceFiles} ${headerFiles} )
 
 
-add_library(stonex-cms-amqp-test-framework
+add_library(stonex-cms-amqp-test-framework STATIC
 	${sourceFiles}
 	${headerFiles}
 	)     

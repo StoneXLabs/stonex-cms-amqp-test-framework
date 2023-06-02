@@ -20,6 +20,7 @@
 #pragma once
 
 #include <MessageSender/MessageSenderFactory.h>
+#include <vector>
 
 namespace stonex {
 	namespace messaging {
