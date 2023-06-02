@@ -37,7 +37,7 @@
 
 #pragma once
 
-#include <MessageSender/MockMessageSender.h>
+#include <MessageSender/MessageFileSender.h>
 #include <google/protobuf/util/json_util.h>
 #include <google/protobuf/util/time_util.h>
 #include <fmt/format.h>
@@ -48,11 +48,11 @@ namespace stonex {
 		namespace test {
 
 			template <class T>
-			class MockProtobufMessageSender : public MockMessageSender
+			class MockProtobufMessageFileSender : public MessageFileSender
 			{
 			public:
-				MockProtobufMessageSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
-					:MockMessageSender(config, client_params, parent)
+				MockProtobufMessageFileSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+					:MessageFileSender(config, client_params, parent)
 				{
 				};
 

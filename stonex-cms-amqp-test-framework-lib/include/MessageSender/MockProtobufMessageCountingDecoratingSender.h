@@ -57,10 +57,7 @@ namespace stonex {
 
 				virtual std::string timeStamp() const override
 				{
-					auto timestamp = google::protobuf::util::TimeUtil::GetCurrentTime();
-					auto test = google::protobuf::util::TimeUtil::ToString(timestamp);
-					return  fmt::format("\"timestamp\":\"{}\"", test);
-
+					return  fmt::format("\"timestamp\":\"{}\"", google::protobuf::util::TimeUtil::ToString(google::protobuf::util::TimeUtil::GetCurrentTime()));
 				}
 			protected:
 				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override

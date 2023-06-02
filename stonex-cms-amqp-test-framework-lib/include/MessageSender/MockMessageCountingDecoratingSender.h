@@ -20,7 +20,7 @@
 #pragma once
 
 #include <chrono>
-#include <MessageSender/MessageSender.h>
+#include <MessageSender/MessageCountingDecoratingSender.h>
 #include <Configuration/MessageCountingDecoratingSenderConfiguration.h>
 #include <utils/SentMessageCounter.h>
 #include <utils/MessageDecorator.h>
@@ -30,15 +30,11 @@ namespace stonex {
 	namespace messaging {
 		namespace test {
 
-			class MockMessageCountingDecoratingSender : public MessageSender, public SentMessageCounter, public MessageDecorator, public MockMessage
+			class MockMessageCountingDecoratingSender : public MessageCountingDecoratingSender, public MockMessage
 			{
 			public:
 				MockMessageCountingDecoratingSender(const MessageCountingDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
-				virtual std::string createMessageBody();
-				virtual MESSAGE_SEND_STATUS send_text(int msg_delay_ms = 0) override;
-				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override;
-				virtual MESSAGE_SEND_STATUS send_stream(int msg_delay_ms = 0) override;
-				virtual MESSAGE_SEND_STATUS send_map(int msg_delay_ms = 0) override;
+				virtual std::string createMessageBody() override;
 			private:
 				std::vector <MessageField*> mMessageDecorations;
 			};

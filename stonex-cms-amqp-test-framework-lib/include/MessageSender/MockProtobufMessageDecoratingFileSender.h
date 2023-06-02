@@ -37,22 +37,21 @@
 
 #pragma once
 
-#include <MessageSender/MockMessageSender.h>
+#include <MessageSender/MessageDecoratingFileSender.h>
 #include <google/protobuf/util/json_util.h>
 #include <google/protobuf/util/time_util.h>
 #include <fmt/format.h>
-#include <Messages/mock_message.pb.h>
 
 namespace stonex {
 	namespace messaging {
 		namespace test {
 
 			template <class T>
-			class MockProtobufMessageSender : public MockMessageSender
+			class MockProtobufMessageDecoratingFileSender : public MessageDecoratingFileSender
 			{
 			public:
-				MockProtobufMessageSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
-					:MockMessageSender(config, client_params, parent)
+				MockProtobufMessageDecoratingFileSender(const MessageDecoratingSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+					:MessageDecoratingFileSender(config, client_params, parent)
 				{
 				};
 
@@ -60,6 +59,7 @@ namespace stonex {
 				{
 					return  fmt::format("\"timestamp\":\"{}\"", google::protobuf::util::TimeUtil::ToString(google::protobuf::util::TimeUtil::GetCurrentTime()));
 				};
+
 			protected:
 				virtual MESSAGE_SEND_STATUS send_bytes(int msg_delay_ms = 0) override
 				{
@@ -73,12 +73,13 @@ namespace stonex {
 					{
 						T protobuf_message;
 						google::protobuf::util::JsonStringToMessage(message_body, &protobuf_message);
-						
+
 						auto size = protobuf_message.ByteSizeLong();
 						unsigned char* message = (unsigned char*)malloc((size_t)size);
 						protobuf_message.SerializeToArray(message, size);
 
 						auto cms_message = mSession->createBytesMessage(message, protobuf_message.ByteSize());
+						decorate(cms_message, mSession);
 						mProducer->send(cms_message);
 						delete cms_message;
 						free(message);
@@ -88,15 +89,8 @@ namespace stonex {
 						return MESSAGE_SEND_STATUS::FAILED;
 				};
 
-				virtual MESSAGE_SEND_STATUS send_stream(int msg_delay_ms = 0) override
-				{
-					return  MESSAGE_SEND_STATUS::SEND_ERROR;
-				};
-
-				virtual MESSAGE_SEND_STATUS send_map(int msg_delay_ms = 0) override
-				{
-					return  MESSAGE_SEND_STATUS::SEND_ERROR;
-				};
+				virtual MESSAGE_SEND_STATUS send_stream(int msg_delay_ms = 0) override { return MESSAGE_SEND_STATUS::SEND_ERROR; }
+				virtual MESSAGE_SEND_STATUS send_map(int msg_delay_ms = 0) override { return MESSAGE_SEND_STATUS::SEND_ERROR; }
 			};
 		}
 	}
