@@ -19,7 +19,7 @@ file(GLOB headerFiles
 	)
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${sourceFiles} ${headerFiles} )
-add_compile_options(/permissive)
+add_compile_options(/permissive-)
 
 add_library(stonex-cms-amqp-test-framework STATIC
 	${sourceFiles}
