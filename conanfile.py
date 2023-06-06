@@ -40,7 +40,6 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
         cmake.configure()
         cmake.build()
 
-
     def package(self):
         self.copy("*.h", dst="include",src="stonex-cms-amqp-test-framework-lib/include")
         self.copy("*.lib", dst="lib",src="lib", keep_path=False)
