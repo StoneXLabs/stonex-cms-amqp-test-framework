@@ -37,7 +37,7 @@
 #include <MessageSender/MockProtobufMessageDecoratingSender.h>
 #include <MessageSender/MockMessageCountingDecoratingSender.h>
 #include <MessageSender/MockProtobufMessageCountingDecoratingSender.h>
-#include <messages/mock_message.pb.h>
+//#include <messages/mock_message.pb.h>
 
 MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const MessageSenderConfiguration & sender_configuration, CMSClientTestUnit & client_configuration, Notifier & parent) const
 {
