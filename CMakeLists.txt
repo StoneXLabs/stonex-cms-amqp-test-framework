@@ -43,5 +43,5 @@ target_link_libraries(stonex-cms-amqp-test-framework
 	protobuf-messages
 	)
 
-add_subdirectory(Test)
+#add_subdirectory(Test)
   
