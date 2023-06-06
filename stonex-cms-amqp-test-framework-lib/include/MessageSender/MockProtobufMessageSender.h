@@ -41,7 +41,7 @@
 #include <google/protobuf/util/json_util.h>
 #include <google/protobuf/util/time_util.h>
 #include <fmt/format.h>
-#include <Messages/mock_message.pb.h>
+//#include <Messages/mock_message.pb.h>
 
 namespace stonex {
 	namespace messaging {

@@ -7,7 +7,7 @@ conan_basic_setup(TARGETS)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_STANDARD 20)
 
-add_subdirectory(protobuf-messages)
+#add_subdirectory(protobuf-messages)
 
 file(GLOB sourceFiles
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/MessageSender/*.cpp 
