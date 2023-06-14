@@ -1,0 +1,10 @@
+{"source":"file_producer","timestamp":"2023-06-02T08:33:18Z","message_count": 1 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T09:33:18Z","message_count": 2 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T10:33:18Z","message_count": 3 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T11:33:18Z","message_count": 4 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T12:33:18Z","message_count": 5 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T13:33:18Z","message_count": 6 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T14:33:18Z","message_count": 7 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T15:33:18Z","message_count": 8 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T16:33:18Z","message_count": 9 , "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
+{"source":"file_producer","timestamp":"2023-06-02T17:33:18Z","message_count": 10, "properties":{"test_property":"test","test_property_bool":false,"test_property_short":1}}
