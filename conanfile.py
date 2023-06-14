@@ -31,6 +31,8 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
+        if self.settings.arch == "x86":
+            self.options["protobuf"].use_32_time_t = True
 
     def source(self):
          self.run("git clone https://github.com/StoneXLabs/stonex-cms-amqp-test-framework.git")  
