@@ -32,7 +32,7 @@ namespace stonex {
 				TestMessageReceiverFactory();
 
 			protected:
-				virtual MessageReceiver* create_receiver(const MessageReceiverConfiguration& receiver_configuration, CMSClientTestUnit& client_configuration, Notifier& parent)  const;
+				virtual MessageReceiver* create_receiver(const MessageReceiverConfiguration& receiver_configuration, CMSClientTestUnit& client_configuration, Notifier& parent)  const override;
 			private:
 				const std::vector<std::string> mConsumerType;
 			};
