@@ -39,6 +39,12 @@
 #include <MessageSender/MockProtobufMessageCountingDecoratingSender.h>
 #include <messages/mock_message.pb.h>
 
+
+stonex::messaging::test::TestSenderFactory::TestSenderFactory()
+	:mProduceType{ "framework","framework-protobuf" }
+{
+}
+
 MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const MessageSenderConfiguration & sender_configuration, CMSClientTestUnit & client_configuration, Notifier & parent) const
 {
 	if (std::cend(mProduceType) != std::find_if(std::cbegin(mProduceType), std::cend(mProduceType), [&sender_configuration](const std::string& item) {return sender_configuration.senderType() == item; }))
@@ -102,9 +108,4 @@ MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const 
 	}
 	else
 		return MessageSenderFactory::create_sender(sender_configuration, client_configuration, parent);
-}
-
-stonex::messaging::test::TestSenderFactory::TestSenderFactory()
-	:mProduceType{ "framework","framework-protobuf" }
-{
 }
