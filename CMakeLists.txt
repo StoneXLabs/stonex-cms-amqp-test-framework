@@ -11,10 +11,12 @@ add_subdirectory(protobuf-messages)
 
 file(GLOB sourceFiles
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/MessageSender/*.cpp 
+	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/MessageReceiver/*.cpp  
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/src/Messages/*.cpp 
 	)
 file(GLOB headerFiles
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/include/MessageSender/*.h 
+	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/include/MessageReceiver/*.h  
 	${PROJECT_SOURCE_DIR}/stonex-cms-amqp-test-framework-lib/include/Messages/*.h 
 	)
 
@@ -43,5 +45,5 @@ target_link_libraries(stonex-cms-amqp-test-framework
 	protobuf-messages
 	)
 
-#add_subdirectory(Test)
+add_subdirectory(Test)
   

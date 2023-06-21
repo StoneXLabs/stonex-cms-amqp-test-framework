@@ -19,20 +19,24 @@
 
 #pragma once
 
-#include <MessageSender/MessageSender.h>
-#include <Messages/MockMessage.h>
+#include <MessageReceiver/MessageDecoratingReceiver.h>
+#include <google/protobuf/util/json_util.h>
+#include <google/protobuf/util/time_util.h>
+#include <fmt/format.h>
 
 namespace stonex {
 	namespace messaging {
 		namespace test {
 
-			class MockMessageSender : public MessageSender, public MockMessage
+			template <class T>
+			class ProtobufMessageDecoratingReceiver : public MessageDecoratingReceiver
 			{
 			public:
-				MockMessageSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
-				virtual std::string createMessageBody();
+				ProtobufMessageDecoratingReceiver(const MessageDecoratingReceiverConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent)
+					:MessageDecoratingReceiver(config, client_params, parent)
+				{
+				};
 			};
-
 		}
 	}
 }

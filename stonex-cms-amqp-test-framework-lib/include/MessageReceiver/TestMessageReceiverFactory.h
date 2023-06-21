@@ -19,18 +19,22 @@
 
 #pragma once
 
-#include <MessageSender/MessageSender.h>
-#include <Messages/MockMessage.h>
+#include <vector>
+#include <MessageReceiver/MessageReceiverFactory.h>
 
 namespace stonex {
 	namespace messaging {
 		namespace test {
 
-			class MockMessageSender : public MessageSender, public MockMessage
+			class TestMessageReceiverFactory : public MessageReceiverFactory
 			{
 			public:
-				MockMessageSender(const MessageSenderConfiguration& config, CMSClientTestUnit & client_params, Notifier& parent);
-				virtual std::string createMessageBody();
+				TestMessageReceiverFactory();
+
+			protected:
+				virtual MessageReceiver* create_receiver(const MessageReceiverConfiguration& receiver_configuration, CMSClientTestUnit& client_configuration, Notifier& parent)  const override;
+			private:
+				const std::vector<std::string> mConsumerType;
 			};
 
 		}

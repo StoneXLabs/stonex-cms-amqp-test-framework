@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 StoneX Financial Ltd.
+ * Copyright 2023 StoneX Financial Ltd.
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -38,6 +38,12 @@
 #include <MessageSender/MockMessageCountingDecoratingSender.h>
 #include <MessageSender/MockProtobufMessageCountingDecoratingSender.h>
 #include <messages/mock_message.pb.h>
+
+
+stonex::messaging::test::TestSenderFactory::TestSenderFactory()
+	:mProduceType{ "framework","framework-protobuf" }
+{
+}
 
 MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const MessageSenderConfiguration & sender_configuration, CMSClientTestUnit & client_configuration, Notifier & parent) const
 {
@@ -102,9 +108,4 @@ MessageSender * stonex::messaging::test::TestSenderFactory::create_sender(const 
 	}
 	else
 		return MessageSenderFactory::create_sender(sender_configuration, client_configuration, parent);
-}
-
-stonex::messaging::test::TestSenderFactory::TestSenderFactory()
-	:mProduceType{ "framework","framework-protobuf" }
-{
 }
