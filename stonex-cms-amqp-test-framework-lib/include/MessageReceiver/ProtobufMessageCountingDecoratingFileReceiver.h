@@ -66,7 +66,7 @@ namespace stonex {
 
 						unsigned char* data_ptr = binary_message->getBodyBytes();
 
-						framework::MockMessage protobuf_message;
+						T protobuf_message;
 						protobuf_message.ParseFromArray(data_ptr, length);
 
 						return protobuf_message.DebugString();
