@@ -31,7 +31,7 @@
 #include <TestSuite/TestCasePerformer.h>
 
 
-TEST_CASE_STATUS test_fun(CMSClientTestUnit* a, TestCasePerformer* b) {
+TEST_CASE_STATUS test_fun(CMSClientTestUnit* a, TestCasePerformer* b, TestCaseVerifier* c) {
 
 	b->sendAll();
 	std::this_thread::sleep_for(std::chrono::seconds(3));
