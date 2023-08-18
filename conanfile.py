@@ -20,13 +20,17 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
     default_options = {"shared": False, "fPIC": True}
     generators = "cmake"
 
-    def build_requirements(self):
-        self.build_requires("stonex-cms-amqp-test-engine/2.0.0@enterprise_messaging/test")
-        self.build_requires("protobuf/3.20.1@enterprise_messaging/test")
-        self.build_requires("fmt/9.1.0@enterprise_messaging/test")
-        self.build_requires("boost/1.78.0@enterprise_messaging/stable")
-        self.build_requires("stonex-logger-wrapper/0.0.2@enterprise_messaging/test")
-        self.build_requires("stonex-cms-amqp-lib/0.2.3@enterprise_messaging/test")
+    def requirements(self):
+       	self.requires("stonex-cms-amqp-test-engine/None@enterprise_messaging/test")
+        if self.settings.os == "Windows":
+           self.requires("stonex-logger-wrapper/0.0.2@enterprise_messaging/test")
+           self.requires("stonex-cms-amqp-lib/None@enterprise_messaging/test")
+           self.requires("protobuf/3.20.1@enterprise_messaging/test")
+           self.requires("fmt/9.1.0@enterprise_messaging/test")
+           self.requires("boost/1.78.0@enterprise_messaging/stable")
+        if self.settings.os == "Linux":
+           self.requires("protobuf/3.20.0")
+           self.requires("boost/1.78.0")
         
     def config_options(self):
         if self.settings.os == "Windows":
@@ -46,6 +50,8 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
         self.copy("*.h", dst="include",src="stonex-cms-amqp-test-framework-lib/include")
         self.copy("*.lib", dst="lib",src="lib", keep_path=False)
         self.copy("*.pdb", dst="lib",src="lib", keep_path=False)
+        self.copy("*.so*", dst="lib",src="lib", keep_path=False)
+        self.copy("*.a", dst="lib",src="lib", keep_path=False)
         
         self.copy("*.exe", dst="bin",src="bin", keep_path=False)
         

@@ -8,11 +8,19 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(protobuf-messages-test ${PROJECT_SOURCE_DIR}/main.cpp)
 
-
-target_link_libraries(protobuf-messages-test
+if(UNIX)
+	target_link_libraries(protobuf-messages-test
+	protobuf-messages
+	CONAN_PKG::protobuf
+	)
+else(UNIX)
+	target_link_libraries(protobuf-messages-test
 	protobuf-messages
 	CONAN_PKG::protobuf
 	secur32 
 	crypt32 
 	Ws2_32
 	)
+endif()
+
+

@@ -6,7 +6,11 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_FIND_DEBUG_MODE TRUE)
-find_package(protobuf REQUIRED)
+if(UNIX)
+	find_package(Protobuf REQUIRED)
+else(UNIX)
+	find_package(protobuf REQUIRED)
+endif()
 
 include_directories(${Protobuf_INCLUDE_DIRS} )
 
