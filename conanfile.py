@@ -21,7 +21,7 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
     generators = "cmake"
 
     def requirements(self):
-       	self.requires("stonex-cms-amqp-test-engine/2.0.0@enterprise_messaging/test")
+       	self.requires("stonex-cms-amqp-test-engine/None@enterprise_messaging/test")
         if self.settings.os == "Windows":
            self.requires("stonex-logger-wrapper/0.0.2@enterprise_messaging/test")
            self.requires("stonex-cms-amqp-lib/0.2.3@enterprise_messaging/test")
@@ -35,14 +35,23 @@ class StonexCmsAmqpTestFrameworkConan(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
-        if self.settings.arch == "x86":
-            self.options["protobuf"].use_32_time_t = True
+            if self.settings.arch == "x86":
+            	self.options["protobuf"].use_32_time_t = True
+
+        self.options["stonex-cms-amqp-test-engine"].shared = self.options.shared
+        self.options["stonex-cms-amqp-lib"].shared = self.options.shared
+        self.options["stonex-logger-wrapper"].shared = self.options.shared
+        self.options["red-hat-amq-clients-c++"].shared = self.options.shared
+
+
 
     def source(self):
          self.run("git clone https://github.com/StoneXLabs/stonex-cms-amqp-test-framework.git")  
 
     def build(self):
         cmake = CMake(self)
+        if self.options.shared == False:
+            cmake.definitions["BUILD_STATIC_LIBS"]="ON"
         cmake.configure()
         cmake.build()
 

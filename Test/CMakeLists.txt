@@ -13,13 +13,24 @@ add_executable(framework-test main.cpp)
 
 target_include_directories(framework-test PUBLIC ${PROJECT_SOURCE_DIR}/main.cpp )
 
-target_link_libraries(framework-test
+if(UNIX)
+	target_link_libraries(framework-test
+	stonex-cms-amqp-test-framework
+	CONAN_PKG::stonex-cms-amqp-test-engine
+	CONAN_PKG::stonex-cms-amqp-lib
+	CONAN_PKG::protobuf
+	)
+else(UNIX)
+	target_link_libraries(framework-test
 	stonex-cms-amqp-test-framework
 	CONAN_PKG::protobuf
 	secur32 
 	crypt32 
 	Ws2_32
 	)
+endif()
+
+
 	
 configure_file(${PROJECT_SOURCE_DIR}/test_case_all.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all.config COPYONLY)    
 configure_file(${PROJECT_SOURCE_DIR}/test_case_all_protobuf.config ${CMAKE_CURRENT_BINARY_DIR}/test_case_all_protobuf.config COPYONLY)    

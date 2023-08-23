@@ -23,7 +23,12 @@ file(GLOB headerFiles
 	${PROJECT_SOURCE_DIR}/messages/*.pb.h 
 	)
 
-add_library(protobuf-messages STATIC ${sourceFiles} ${headerFiles})
+if(BUILD_STATIC_LIBS)
+	add_library(protobuf-messages STATIC ${sourceFiles} ${headerFiles})  
+else()
+	add_library(protobuf-messages SHARED ${sourceFiles} ${headerFiles}) 
+endif() 
+
 
 target_include_directories(protobuf-messages PUBLIC ${PROJECT_SOURCE_DIR})
 

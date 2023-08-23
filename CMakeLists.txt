@@ -23,10 +23,21 @@ file(GLOB headerFiles
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${sourceFiles} ${headerFiles} )
 
 
-add_library(stonex-cms-amqp-test-framework STATIC
+if(BUILD_STATIC_LIBS)
+	message(BUILD_STATIC_LIBS ${BUILD_STATIC_LIBS} " STATIC")
+	add_library(stonex-cms-amqp-test-framework STATIC
+	${sourceFiles}
+	${headerFiles}
+	)       
+else()
+	message(BUILD_STATIC_LIBS ${BUILD_STATIC_LIBS} " SHARED")
+	add_library(stonex-cms-amqp-test-framework SHARED
 	${sourceFiles}
 	${headerFiles}
 	)     
+endif() 
+
+
 
 
 target_include_directories(stonex-cms-amqp-test-framework PUBLIC
@@ -37,8 +48,8 @@ target_include_directories(stonex-cms-amqp-test-framework PUBLIC
 
 
 target_link_libraries(stonex-cms-amqp-test-framework 
-	CONAN_PKG::stonex-cms-amqp-lib
 	CONAN_PKG::stonex-cms-amqp-test-engine 
+	CONAN_PKG::stonex-cms-amqp-lib
 	CONAN_PKG::protobuf 
 	CONAN_PKG::fmt
 	CONAN_PKG::boost
@@ -46,5 +57,5 @@ target_link_libraries(stonex-cms-amqp-test-framework
 	protobuf-messages
 	)
 
-#add_subdirectory(Test)
+add_subdirectory(Test)
   
